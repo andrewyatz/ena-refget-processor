@@ -8,6 +8,13 @@ This is a pure perl library. All dependencies are handled in a cpanfile and usin
 cpanm --installdeps .
 ```
 
+If you have the excellent [carton](https://metacpan.org/pod/Carton) library available you can use this to manage your dependencies.
+
+```
+carton install
+carton exec ./bin/load_expanded_con.pl ....
+```
+
 ## Load expanded cons
 
 ```
