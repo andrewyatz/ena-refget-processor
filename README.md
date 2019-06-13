@@ -12,7 +12,7 @@ If you have the excellent [carton](https://metacpan.org/pod/Carton) library avai
 
 ```
 carton install
-carton exec ./bin/load_expanded_con.pl ....
+perl -I ./local/lib/perl5/ ./bin/load_expanded_con.pl -h
 ```
 
 ## Load expanded cons
