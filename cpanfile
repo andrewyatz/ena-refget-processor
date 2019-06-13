@@ -1,0 +1,9 @@
+requires 'Bio::Perl';
+requires 'JSON';
+requires 'JSON::XS';
+requires 'HTTP::Tiny';
+requires 'Path::Tiny';
+requires 'Moose';
+requires 'DateTime::Tiny';
+requires 'Text::CSV';
+requires 'IO::Scalar';
