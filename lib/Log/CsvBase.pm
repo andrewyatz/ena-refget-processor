@@ -10,30 +10,23 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-package Log::Loader;
+package Log::CsvBase;
 
-use Moose;
-with 'Log::Base';
+use Moose::Role;
+use Text::CSV;
 
-has 'completed'  =>  ( isa => 'Bool', is => 'ro', required => 1 );
+requires 'build_fh';
 
-sub headers {
-  return [qw/timestamp completed trunc512 md5 seq_path json_path/];
-}
+has 'target'      => ( isa => 'Path::Tiny', is => 'ro', required => 0 );
+has 'fh'          => ( isa => 'FileHandle', is => 'ro', lazy => 1, builder => 'build_fh' );
+has 'csv'         => ( isa => 'Text::CSV', is => 'ro', required => 1, lazy => 1, builder => 'build_csv');
+has 'separator'   => ( isa => 'Str', is => 'ro', required => 1, default => qq{,} );
 
-sub columns {
+sub build_csv {
   my ($self) = @_;
-  my $metadata = $self->metadata();
-  return [
-    $self->timestamp()->ymdhms(),
-    $self->completed(),
-    $metadata->trunc512(),
-    $metadata->md5(),
-    $metadata->seq_path()->absolute()->stringify(),
-    $metadata->json_path()->absolute()->stringify(),
-  ];
+  my $separator = $self->separator();
+  my $csv = Text::CSV->new({ binary => 1, eol => $/, sep_char => $separator });
+  return $csv;
 }
-
-__PACKAGE__->meta->make_immutable;
 
 1;

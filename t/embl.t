@@ -29,6 +29,9 @@ use Log::VersionLookup;
 my $accession = 'ML136216';
 my $version = '1';
 my $versioned_accession = "${accession}.${version}";
+my $species = 'Bemisia tabaci';
+my $biosample = 'SAMN03382551';
+my $taxon = 7038;
 
 my $data_path = path(__FILE__)->absolute()->parent()->child('data');
 my $uncompressed_embl = $data_path->child("${versioned_accession}.dat.gz");
@@ -65,29 +68,31 @@ my $run_test = sub {
   my $completed = 1;
 
   my $process_embl = ProcessEmbl->new(path => $embl_path, sequence_store_path => $sequence_store_path, metadata_store_path => $metadata_store_path, handler => sub {
-    my ($metadata, $target) = @_;
+    my ($metadata) = @_;
 
     # Check written sequence & metadata are as as expected
+    my $seq_path = $metadata->seq_path()->absolute()->stringify();
+    my $json_path = $metadata->json_path()->absolute()->stringify();
     eq_or_diff($metadata->to_refget_metadata_hash(), $expected_metadata, "Checking metadata ${type}");
-    note "Written sequence path for $type is $target";
-    is($target->absolute->stringify(), $expected_seq_target->absolute->stringify(), "Sequence writing path as expected for ${type}");
-    note "Written metadata path for $type is ".$metadata->path();
-    is($metadata->path->absolute->stringify(), $expected_metadata_target->absolute->stringify(), "Metadata writing path as expected for ${type}");
+    note "Written sequence path for $type is $seq_path";
+    is($seq_path, $expected_seq_target->absolute->stringify(), "Sequence writing path as expected for ${type}");
+    note "Written metadata path for $type is $json_path";
+    is($json_path, $expected_metadata_target->absolute->stringify(), "Metadata writing path as expected for ${type}");
 
     # Check the logging system works
     my $timestamp = DateTime::Tiny->now();
-    my $expected_full_log = [$timestamp->as_string(), $trunc512, $md5, $length, $sha512, $trunc512_base64, $versioned_accession, $ena_type];
+    my $expected_full_log = [$trunc512, $md5, $length, $sha512, $trunc512_base64, $versioned_accession, $ena_type, $species, $biosample, $taxon];
     my $full_log = Log::Full->new(metadata => $metadata, ena_type => $ena_type, timestamp => $timestamp);
     eq_or_diff($full_log->columns(), $expected_full_log, "Generated full log event as expected for ${type}");
 
-    my $expected_loader_log = [$timestamp->as_string(), $completed, $trunc512, $md5, $target];
-    my $loader_log = Log::Loader->new(metadata => $metadata, path => $target, timestamp => $timestamp, completed => $completed);
+    my $expected_loader_log = [$timestamp->as_string(), $completed, $trunc512, $md5, $seq_path, $json_path];
+    my $loader_log = Log::Loader->new(metadata => $metadata, timestamp => $timestamp, completed => $completed);
     eq_or_diff($loader_log->columns(), $expected_loader_log, "Generated loader log event as expected for ${type}");
 
     # Test log output
     my $log_output = '';
-    my $expected_log_output = qq{timestamp,completed,trunc512,md5,path
-$timestamp,$completed,$trunc512,$md5,$target
+    my $expected_log_output = qq{timestamp,completed,trunc512,md5,seq_path,json_path
+$timestamp,$completed,$trunc512,$md5,$seq_path,$json_path
 };
     my $fh = IO::Scalar->new(\$log_output);
     my $writer = Log::Writer->new(fh => $fh);

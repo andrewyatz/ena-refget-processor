@@ -14,22 +14,11 @@ package Log::Writer;
 
 use Moose;
 use Scalar::Util qw/blessed/;
-use Text::CSV;
 
-has 'target'      => ( isa => 'Path::Tiny', is => 'ro', required => 0 );
-has 'fh'          => ( isa => 'FileHandle', is => 'ro', lazy => 1, builder => 'build_fh' );
-has 'csv'         => ( isa => 'Text::CSV', is => 'ro', required => 1, lazy => 1, builder => 'build_csv_writer');
-has 'separator'   => ( isa => 'Str', is => 'ro', required => 1, default => qq{,} );
+with 'Log::CsvBase';
 
 has 'first_line'  => ( isa => 'Bool', is => 'rw', default => 0 );
 has 'headers'     => ( isa => 'ArrayRef', is => 'rw', predicate => 'has_headers' );
-
-sub build_csv_writer {
-	my ($self) = @_;
-	my $separator = $self->separator();
-	my $csv = Text::CSV->new({ binary => 1, eol => $/, sep_char => $separator });
-	return $csv;
-}
 
 sub build_fh {
   my ($self) = @_;

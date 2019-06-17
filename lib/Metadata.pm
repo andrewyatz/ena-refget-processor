@@ -17,12 +17,17 @@ use MIME::Base64 qw/encode_base64url/;
 use Checksum::MD5;
 use Checksum::SHA512;
 
-has 'md5'       =>  ( isa => 'Str', is => 'ro', required => 1 );
-has 'sha512'    =>  ( isa => 'Str', is => 'ro', required => 1 );
-has 'length'    =>  ( isa => 'Int', is => 'ro', required => 1 );
-has 'accession' =>  ( isa => 'Str', is => 'ro', required => 1 );
-has 'version'   =>  ( isa => 'Int', is => 'ro', required => 1 );
-has 'path'      =>  ( isa => 'Path::Tiny', is => 'rw', predicate => 'has_path' );
+has 'md5'           =>  ( isa => 'Str', is => 'ro', required => 1 );
+has 'sha512'        =>  ( isa => 'Str', is => 'ro', required => 1 );
+has 'length'        =>  ( isa => 'Int', is => 'ro', required => 1 );
+has 'accession'     =>  ( isa => 'Str', is => 'ro', required => 1 );
+has 'species'       =>  ( isa => 'Str', is => 'ro', required => 1 );
+has 'biosample'     =>  ( isa => 'Str', is => 'ro', required => 0 );
+has 'taxon'         =>  ( isa => 'Int', is => 'ro', required => 0 );
+has 'version'       =>  ( isa => 'Int', is => 'ro', required => 1 );
+
+has 'json_path'     =>  ( isa => 'Path::Tiny', is => 'rw', predicate => 'has_json_path' );
+has 'seq_path'      =>  ( isa => 'Path::Tiny', is => 'rw', predicate => 'has_seq_path' );
 
 sub create_from_seq {
   my ($self, $seq) = @_;
@@ -31,13 +36,22 @@ sub create_from_seq {
   my $length = $seq->length();
   my $id = $seq->id();
   my $version = $seq->version();
+  my $species = $seq->species()->scientific_name();
+  my ($biosample) = grep { $_->database() eq 'BioSample' } $seq->get_Annotations('dblink');
+  my ($taxon) = map { $_ =~ /^taxon:(\d+)$/; $1; }
+                grep { $_ =~ /^taxon:\d+$/ }
+                map { $_->get_tag_values('db_xref') }
+                $seq->get_SeqFeatures('source');
 
   return Metadata->new(
     sha512 => $sha512,
     md5 => $md5,
     length => $length,
     accession => $id,
-    version => $version
+    version => $version,
+    species => $species,
+    biosample => $biosample->primary_id(),
+    taxon => $taxon,
   );
 }
 

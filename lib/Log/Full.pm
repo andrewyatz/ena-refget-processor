@@ -20,14 +20,13 @@ with 'Log::Base';
 has 'ena_type'  =>  ( isa => 'Str', is => 'ro', required => 1 );
 
 sub headers {
-  return [qw/timestamp trunc512 md5 length sha512 trunc512_base64 insdc ena_type/];
+  return [qw/trunc512 md5 length sha512 trunc512_base64 insdc ena_type species biosample taxon/];
 }
 
 sub columns {
   my ($self) = @_;
   my $metadata = $self->metadata();
   return [
-    $self->timestamp()->ymdhms(),
     $metadata->trunc512(),
     $metadata->md5(),
     $metadata->length(),
@@ -35,6 +34,9 @@ sub columns {
     $metadata->trunc512_base64(),
     $metadata->versioned_accession(),
     $self->ena_type(),
+    $metadata->species(),
+    $metadata->biosample(),
+    $metadata->taxon(),
   ];
 }
 

@@ -10,29 +10,27 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-package ProcessMetadata;
+package Log::Reader;
 
 use Moose;
-use Metadata;
-use JSON qw/encode_json/;
-use Digest::MD5 qw/md5_hex/;
 
-with 'BaseProcess';
+with 'Log::CsvBase';
 
-has 'seq' =>  ( isa => 'Bio::PrimarySeqI', is => 'ro', required => 1 );
-
-sub process {
+sub build_fh {
   my ($self) = @_;
-  my $seq = $self->seq();
-  my $metadata = Metadata->create_from_seq($seq);
-  my $target_dir = $self->get_target_dir($metadata);
-  my $target = $target_dir->child($metadata->trunc512().'.json');
-  my $json = encode_json($metadata->to_refget_metadata_hash());
-  $target->spew($json);
-  my $md5 = md5_hex($json);
-  $self->check_content($target, $md5);
-  $metadata->json_path($target);
-  return $metadata;
+  my $target = $self->target();
+  if($target->is_file()) {
+    return $target->openr();
+  }
+  confess "Cannot open filehandle because the target ${target} does not exist";
+}
+
+sub read_record {
+  my ($self) = @_;
+  my $fh = $self->fh();
+  my $csv = $self->csv();
+  my $row = $csv->getline($fh);
+  return $row;
 }
 
 __PACKAGE__->meta->make_immutable;

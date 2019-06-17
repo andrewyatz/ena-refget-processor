@@ -25,8 +25,9 @@ sub process_record {
   my ($self, $seq) = @_;
   my $metadata = ProcessMetadata->new(seq => $seq, store_path => $self->metadata_store_path())->process();
   my $seq_obj = ProcessSeq->new(seq => $seq, metadata => $metadata, store_path => $self->sequence_store_path());
-  my $path = $seq_obj->process();
-  return ($metadata, $path);
+  my $seq_path = $seq_obj->process();
+  $metadata->seq_path($seq_path);
+  return $metadata;
 }
 
 __PACKAGE__->meta->make_immutable;

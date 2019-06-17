@@ -35,19 +35,19 @@ my $process_id = $options->{'process-id'};
 
 sub run {
   my $log_store_path  = $store_path->child('logs');
-  my $full_log        = Log::Writer->new(target => $log_store_path->child("${process_id}.full.log"));
-  my $loader_log      = Log::Writer->new(target => $log_store_path->child("${process_id}.loader.log"));
-  my $version_log     = Log::Writer->new(target => $log_store_path->child("${process_id}.version.log"));
+  my $full_log        = Log::Writer->new(target => $log_store_path->child("${process_id}.full.csv"));
+  my $loader_log      = Log::Writer->new(target => $log_store_path->child("${process_id}.loader.csv"));
+  my $version_log     = Log::Writer->new(target => $log_store_path->child("${process_id}.version.csv"));
 
   my $process_embl = ProcessEmbl->new(
     path => $file_path,
     sequence_store_path => $store_path->child('seq'),
     metadata_store_path => $store_path->child('json'),
     handler => sub {
-      my ($metadata, $target) = @_;
+      my ($metadata) = @_;
       $full_log->write(Log::Full->new(metadata => $metadata, ena_type => $options->{type}));
       $version_log->write(Log::VersionLookup->new(metadata => $metadata));
-      $loader_log->write(Log::Loader->new(metadata => $metadata, completed => 1, path => $target));
+      $loader_log->write(Log::Loader->new(metadata => $metadata, completed => 1));
       return;
     }
   );
