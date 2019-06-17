@@ -37,7 +37,6 @@ To keep a handle on processing, this code produces a number of logs to disk. See
 
 Populated with all pertinent metadata from a load. Columns are:
 
-- timestamp
 - trunc512 checksum
 - md5 checksum
 - sequence length
@@ -45,6 +44,9 @@ Populated with all pertinent metadata from a load. Columns are:
 - base64 url encoded version of trunc512
 - versioned accession
 - record type e.g. expanded_con
+- species (full name)
+- biosample accession (nullable)
+- taxon identifier (nullable)
 
 ## Loader log
 
@@ -55,6 +57,7 @@ Records as/when a record was processed with a success boolean and a path. Column
 - trunc512 checksum
 - md5 checksum
 - path to sequence
+- path to json
 
 ## Version log
 
