@@ -135,9 +135,13 @@ $run_test->($gz_embl, 'gzip embl');
   my $empty_embl = $data_path->child("${human_versioned_accession}.dat");
   my $process_embl = TmpEmblProcessor->new(path => $empty_embl, handler => sub {
     my ($metadata) = @_;
+
+    ok($metadata->is_seq_empty(), 'Checking sequence is empty');
+
     my $log = Log::NoFasta->new(metadata => $metadata, timestamp => $timestamp);
     my $expected_log = ["$timestamp", $human_accession, $human_version];
     eq_or_diff($log->columns(), $expected_log, 'Checking we generate a log entry for a no-fasta situation');
+
     return;
   });
   $process_embl->process();

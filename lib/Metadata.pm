@@ -30,18 +30,15 @@ has 'json_path'     =>  ( isa => 'Path::Tiny', is => 'rw', predicate => 'has_jso
 has 'seq_path'      =>  ( isa => 'Path::Tiny', is => 'rw', predicate => 'has_seq_path' );
 
 sub create_from_seq {
-  my ($self, $seq) = @_;
+  my ($class, $seq) = @_;
   my $md5 = Checksum::MD5->new()->process($seq);
   my $sha512 = Checksum::SHA512->new()->process($seq);
   my $length = $seq->length();
   my $id = $seq->id();
   my $version = $seq->version();
   my $species = $seq->species()->scientific_name();
-  my ($biosample) = map { $_->primary_id() }grep { $_->database() eq 'BioSample' } $seq->get_Annotations('dblink');
-  my ($taxon) = map { $_ =~ /^taxon:(\d+)$/; $1; }
-                grep { $_ =~ /^taxon:\d+$/ }
-                map { $_->get_tag_values('db_xref') }
-                $seq->get_SeqFeatures('source');
+  my $biosample = $class->_biosample_from_seq($seq);
+  my $taxon = $class->_taxon_from_seq($seq);
 
   return Metadata->new(
     sha512 => $sha512,
@@ -53,6 +50,33 @@ sub create_from_seq {
     biosample => $biosample,
     taxon => $taxon,
   );
+}
+
+sub _biosample_from_seq {
+  my ($class, $seq) = @_;
+  my ($biosample) = map { $_->primary_id() }grep { $_->database() eq 'BioSample' } $seq->get_Annotations('dblink');
+  return $biosample;
+}
+
+sub _taxon_from_seq {
+  my ($class, $seq) = @_;
+  my ($taxon) = map { $_ =~ /^taxon:(\d+)$/; $1; }
+                grep { $_ =~ /^taxon:\d+$/ }
+                map { $_->get_tag_values('db_xref') }
+                $seq->get_SeqFeatures('source');
+  return $taxon;
+}
+
+# Updates attributes related to a sequence object
+sub update_seq_attributes {
+  my ($self, $seq) = @_;
+  my $md5 = Checksum::MD5->new()->process($seq);
+  my $sha512 = Checksum::SHA512->new()->process($seq);
+  my $length = $seq->length();
+  $self->md5($md5);
+  $self->sha512($sha512);
+  $self->length($length);
+  return $self;
 }
 
 sub versioned_accession {
@@ -90,6 +114,12 @@ sub to_refget_metadata_hash {
       ]
     }
   };
+}
+
+# Sequence is empty always if the md5 checksum matches below
+sub is_seq_empty {
+  my ($self) = @_;
+  return 1 if $self->md5() eq 'd41d8cd98f00b204e9800998ecf8427e';
 }
 
 __PACKAGE__->meta->make_immutable;
