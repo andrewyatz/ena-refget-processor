@@ -7,3 +7,5 @@ requires 'Moose';
 requires 'DateTime::Tiny';
 requires 'Text::CSV';
 requires 'IO::Scalar';
+requires 'Test::Fake::HTTPD';
+requires 'Test::Differences';
