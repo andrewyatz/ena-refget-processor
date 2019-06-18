@@ -25,6 +25,7 @@ use Log::Full;
 use Log::Loader;
 use Log::Writer;
 use Log::VersionLookup;
+use Log::NoFasta;
 
 my $accession = 'ML136216';
 my $version = '1';
@@ -32,6 +33,8 @@ my $versioned_accession = "${accession}.${version}";
 my $species = 'Bemisia tabaci';
 my $biosample = 'SAMN03382551';
 my $taxon = 7038;
+
+my $timestamp = DateTime::Tiny->now();
 
 my $data_path = path(__FILE__)->absolute()->parent()->child('data');
 my $uncompressed_embl = $data_path->child("${versioned_accession}.dat.gz");
@@ -80,7 +83,6 @@ my $run_test = sub {
     is($json_path, $expected_metadata_target->absolute->stringify(), "Metadata writing path as expected for ${type}");
 
     # Check the logging system works
-    my $timestamp = DateTime::Tiny->now();
     my $expected_full_log = [$trunc512, $md5, $length, $sha512, $trunc512_base64, $versioned_accession, $ena_type, $species, $biosample, $taxon];
     my $full_log = Log::Full->new(metadata => $metadata, ena_type => $ena_type, timestamp => $timestamp);
     eq_or_diff($full_log->columns(), $expected_full_log, "Generated full log event as expected for ${type}");
@@ -111,5 +113,34 @@ $timestamp,$completed,$trunc512,$md5,$seq_path,$json_path
 
 $run_test->($uncompressed_embl, 'uncompressed embl');
 $run_test->($gz_embl, 'gzip embl');
+
+# Test metadata parsing for a EMBL record without sequence
+{
+
+  package TmpEmblProcessor;
+  use Moose;
+  use Metadata;
+  with 'SeqIOFile';
+  sub process_record {
+    my ($self, $seq) = @_;
+    return Metadata->create_from_seq($seq);
+  }
+  __PACKAGE__->meta->make_immutable;
+  1;
+
+  package main;
+  my $human_accession = 'CM000663';
+  my $human_version = 1;
+  my $human_versioned_accession = "${human_accession}.${human_version}";
+  my $empty_embl = $data_path->child("${human_versioned_accession}.dat");
+  my $process_embl = TmpEmblProcessor->new(path => $empty_embl, handler => sub {
+    my ($metadata) = @_;
+    my $log = Log::NoFasta->new(metadata => $metadata, timestamp => $timestamp);
+    my $expected_log = ["$timestamp", $human_accession, $human_version];
+    eq_or_diff($log->columns(), $expected_log, 'Checking we generate a log entry for a no-fasta situation');
+    return;
+  });
+  $process_embl->process();
+}
 
 done_testing();

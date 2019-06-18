@@ -10,23 +10,25 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-package Checksum;
+package Log::NoFasta;
 
-use Moose::Role;
-use Digest;
+use Moose;
+with 'Log::Base';
 
-requires 'algorithm';
-
-has 'digest' => ( isa => 'Any', is => 'ro', lazy => 1, default => sub {
-  my ($self) = @_;
-  return Digest->new($self->algorithm);
-});
-
-sub process {
-  my ($self, $seq) = @_;
-  my $digest = $self->digest();
-  $digest->add($seq->seq()) if defined $seq->seq();
-  return $digest->hexdigest();
+sub headers {
+  return [qw/timestamp accession version/];
 }
+
+sub columns {
+  my ($self) = @_;
+  my $m = $self->metadata();
+  return [
+    $self->timestamp()->ymdhms(),
+    $m->accession(),
+    $m->version(),
+  ];
+}
+
+__PACKAGE__->meta->make_immutable;
 
 1;

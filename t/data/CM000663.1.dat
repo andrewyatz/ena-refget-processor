@@ -1,0 +1,158 @@
+ID   CM000663; SV 1; linear; genomic DNA; CON; HUM; 249250621 BP.
+XX
+AC   CM000663;
+XX
+PR   Project:PRJNA31257;
+XX
+DT   09-MAR-2009 (Rel. 100, Created)
+DT   29-SEP-2009 (Rel. 102, Last updated, Version 2)
+XX
+DE   Homo sapiens chromosome 1, GRCh37 primary reference assembly.
+XX
+KW   .
+XX
+OS   Homo sapiens (human)
+OC   Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi; Mammalia;
+OC   Eutheria; Euarchontoglires; Primates; Haplorrhini; Catarrhini; Hominidae;
+OC   Homo.
+XX
+RN   [1]
+RC   Erratum:[Nature 2001 Aug 2;412(6846):565]
+RP   1-249250621
+RX   DOI; 10.1038/35057062.
+RX   PUBMED; 11237011.
+RG   International Human Genome Sequencing Consortium
+RA   Lander E.S., Linton L.M., Birren B., Nusbaum C., Zody M.C., Baldwin J.,
+RA   Devon K., Dewar K., Doyle M., FitzHugh W., Funke R., Gage D., Harris K.,
+RA   Heaford A., Howland J., Kann L., Lehoczky J., LeVine R., McEwan P.,
+RA   McKernan K., Meldrim J., Mesirov J.P., Miranda C., Morris W., Naylor J.,
+RA   Raymond C., Rosetti M., Santos R., Sheridan A., Sougnez C.,
+RA   Stange-Thomann N., Stojanovic N., Subramanian A., Wyman D., Rogers J.,
+RA   Sulston J., Ainscough R., Beck S., Bentley D., Burton J., Clee C.,
+RA   Carter N., Coulson A., Deadman R., Deloukas P., Dunham A., Dunham I.,
+RA   Durbin R., French L., Grafham D., Gregory S., Hubbard T., Humphray S.,
+RA   Hunt A., Jones M., Lloyd C., McMurray A., Matthews L., Mercer S., Milne S.,
+RA   Mullikin J.C., Mungall A., Plumb R., Ross M., Shownkeen R., Sims S.,
+RA   Waterston R.H., Wilson R.K., Hillier L.W., McPherson J.D., Marra M.A.,
+RA   Mardis E.R., Fulton L.A., Chinwalla A.T., Pepin K.H., Gish W.R.,
+RA   Chissoe S.L., Wendl M.C., Delehaunty K.D., Miner T.L., Delehaunty A.,
+RA   Kramer J.B., Cook L.L., Fulton R.S., Johnson D.L., Minx P.J., Clifton S.W.,
+RA   Hawkins T., Branscomb E., Predki P., Richardson P., Wenning S., Slezak T.,
+RA   Doggett N., Cheng J.F., Olsen A., Lucas S., Elkin C., Uberbacher E.,
+RA   Frazier M., Gibbs R.A., Muzny D.M., Scherer S.E., Bouck J.B.,
+RA   Sodergren E.J., Worley K.C., Rives C.M., Gorrell J.H., Metzker M.L.,
+RA   Naylor S.L., Kucherlapati R.S., Nelson D.L., Weinstock G.M., Sakaki Y.,
+RA   Fujiyama A., Hattori M., Yada T., Toyoda A., Itoh T., Kawagoe C.,
+RA   Watanabe H., Totoki Y., Taylor T., Weissenbach J., Heilig R., Saurin W.,
+RA   Artiguenave F., Brottier P., Bruls T., Pelletier E., Robert C., Wincker P.,
+RA   Smith D.R., Doucette-Stamm L., Rubenfield M., Weinstock K., Lee H.M.,
+RA   Dubois J., Rosenthal A., Platzer M., Nyakatura G., Taudien S., Rump A.,
+RA   Yang H., Yu J., Wang J., Huang G., Gu J., Hood L., Rowen L., Madan A.,
+RA   Qin S., Davis R.W., Federspiel N.A., Abola A.P., Proctor M.J., Myers R.M.,
+RA   Schmutz J., Dickson M., Grimwood J., Cox D.R., Olson M.V., Kaul R.,
+RA   Raymond C., Shimizu N., Kawasaki K., Minoshima S., Evans G.A.,
+RA   Athanasiou M., Schultz R., Roe B.A., Chen F., Pan H., Ramser J.,
+RA   Lehrach H., Reinhardt R., McCombie W.R., de la Bastide M., Dedhia N.,
+RA   Blocker H., Hornischer K., Nordsiek G., Agarwala R., Aravind L.,
+RA   Bailey J.A., Bateman A., Batzoglou S., Birney E., Bork P., Brown D.G.,
+RA   Burge C.B., Cerutti L., Chen H.C., Church D., Clamp M., Copley R.R.,
+RA   Doerks T., Eddy S.R., Eichler E.E., Furey T.S., Galagan J., Gilbert J.G.,
+RA   Harmon C., Hayashizaki Y., Haussler D., Hermjakob H., Hokamp K., Jang W.,
+RA   Johnson L.S., Jones T.A., Kasif S., Kaspryzk A., Kennedy S., Kent W.J.,
+RA   Kitts P., Koonin E.V., Korf I., Kulp D., Lancet D., Lowe T.M.,
+RA   McLysaght A., Mikkelsen T., Moran J.V., Mulder N., Pollara V.J.,
+RA   Ponting C.P., Schuler G., Schultz J., Slater G., Smit A.F., Stupka E.,
+RA   Szustakowski J., Thierry-Mieg D., Thierry-Mieg J., Wagner L., Wallis J.,
+RA   Wheeler R., Williams A., Wolf Y.I., Wolfe K.H., Yang S.P., Yeh R.F.,
+RA   Collins F., Guyer M.S., Peterson J., Felsenfeld A., Wetterstrand K.A.,
+RA   Patrinos A., Morgan M.J., de Jong P., Catanese J.J., Osoegawa K.,
+RA   Shizuya H., Choi S., Chen Y.J.;
+RT   "Initial sequencing and analysis of the human genome";
+RL   Nature 409(6822):860-921(2001).
+XX
+RN   [2]
+RP   1-249250621
+RX   DOI; 10.1038/nature03001.
+RX   PUBMED; 15496913.
+RG   International Human Genome Sequencing Consortium
+RA   ;
+RT   "Finishing the euchromatic sequence of the human genome";
+RL   Nature 431(7011):931-945(2004).
+XX
+RN   [3]
+RC   Erratum:[Nature. 2006 Oct 26;443(7114):1013. Banerjee, R [added]; Bryant,
+RC   SP [added]; Burford, DC [added]; Burrill, WDH [added]; Clegg, SM [added];
+RC   Dhami, P [added]; Dovey, O [added]; Faulkner, LM [added]; Gribble, SM
+RC   [added]; Langford, CF [added]; Pandian, RD [added]; Porter, KM [added];
+RC   Prigmore, E [added]]
+RP   1-249250621
+RX   DOI; 10.1038/nature04727.
+RX   PUBMED; 16710414.
+RA   Gregory S.G., Barlow K.F., McLay K.E., Kaul R., Swarbreck D., Dunham A.,
+RA   Scott C.E., Howe K.L., Woodfine K., Spencer C.C., Jones M.C., Gillson C.,
+RA   Searle S., Zhou Y., Kokocinski F., McDonald L., Evans R., Phillips K.,
+RA   Atkinson A., Cooper R., Jones C., Hall R.E., Andrews T.D., Lloyd C.,
+RA   Ainscough R., Almeida J.P., Ambrose K.D., Anderson F., Andrew R.W.,
+RA   Ashwell R.I., Aubin K., Babbage A.K., Bagguley C.L., Bailey J., Beasley H.,
+RA   Bethel G., Bird C.P., Bray-Allen S., Brown J.Y., Brown A.J., Buckley D.,
+RA   Burton J., Bye J., Carder C., Chapman J.C., Clark S.Y., Clarke G., Clee C.,
+RA   Cobley V., Collier R.E., Corby N., Coville G.J., Davies J., Deadman R.,
+RA   Dunn M., Earthrowl M., Ellington A.G., Errington H., Frankish A.,
+RA   Frankland J., French L., Garner P., Garnett J., Gay L., Ghori M.R.,
+RA   Gibson R., Gilby L.M., Gillett W., Glithero R.J., Grafham D.V.,
+RA   Griffiths C., Griffiths-Jones S., Grocock R., Hammond S., Harrison E.S.,
+RA   Hart E., Haugen E., Heath P.D., Holmes S., Holt K., Howden P.J., Hunt A.R.,
+RA   Hunt S.E., Hunter G., Isherwood J., James R., Johnson C., Johnson D.,
+RA   Joy A., Kay M., Kershaw J.K., Kibukawa M., Kimberley A.M., King A.,
+RA   Knights A.J., Lad H., Laird G., Lawlor S., Leongamornlert D.A., Lloyd D.M.,
+RA   Loveland J., Lovell J., Lush M.J., Lyne R., Martin S.,
+RA   Mashreghi-Mohammadi M., Matthews L., Matthews N.S., McLaren S., Milne S.,
+RA   Mistry S., Moore M.J., Nickerson T., O'Dell C.N., Oliver K., Palmeiri A.,
+RA   Palmer S.A., Parker A., Patel D., Pearce A.V., Peck A.I., Pelan S.,
+RA   Phelps K., Phillimore B.J., Plumb R., Rajan J., Raymond C., Rouse G.,
+RA   Saenphimmachak C., Sehra H.K., Sheridan E., Shownkeen R., Sims S.,
+RA   Skuce C.D., Smith M., Steward C., Subramanian S., Sycamore N., Tracey A.,
+RA   Tromans A., Van Helmond Z., Wall M., Wallis J.M., White S., Whitehead S.L.,
+RA   Wilkinson J.E., Willey D.L., Williams H., Wilming L., Wray P.W., Wu Z.,
+RA   Coulson A., Vaudin M., Sulston J.E., Durbin R., Hubbard T., Wooster R.,
+RA   Dunham I., Carter N.P., McVean G., Ross M.T., Harrow J., Olson M.V.,
+RA   Beck S., Rogers J., Bentley D.R., Banerjee R., Bryant S.P., Burford D.C.,
+RA   Burrill W.D., Clegg S.M., Dhami P., Dovey O., Faulkner L.M., Gribble S.M.,
+RA   Langford C.F., Pandian R.D., Porter K.M., Prigmore E.;
+RT   "The DNA sequence and biological annotation of human chromosome 1";
+RL   Nature 441(7091):315-321(2006).
+XX
+RN   [4]
+RP   1-249250621
+RG   Genome Reference Consortium
+RA   ;
+RT   ;
+RL   Submitted (24-FEB-2009) to the INSDC.
+RL   NCBI, NIH, Bethesda, MD 20892, USA
+XX
+CC   The DNA sequence is composed of genomic sequence, primarily
+CC   finished clones that were sequenced as part of the Human Genome
+CC   Project. PCR products and WGS shotgun sequence have been added
+CC   where necessary to fill gaps or correct errors. All such additions
+CC   are manually curated by GRC staff. For more information see:
+CC   http://genomereference.org.
+XX
+FH   Key             Location/Qualifiers
+FH
+FT   source          1..249250621
+FT                   /organism="Homo sapiens"
+FT                   /chromosome="1"
+FT                   /mol_type="genomic DNA"
+FT                   /db_xref="taxon:9606"
+XX
+CO   join(gap(10000),GL000001.1:1..257719,gap(50000),GL000002.1:1..153649,
+CO   gap(50000),GL000003.1:1..3323900,gap(150000),GL000004.1:1..9224644,
+CO   gap(100000),GL000005.1:1..16558170,gap(150000),GL000006.1:1..90908613,
+CO   gap(150000),GL000007.1:1..398739,gap(50000),gap(3000000),gap(18000000),
+CO   GL000008.1:1..432327,gap(150000),GL000009.1:1..426764,gap(100000),
+CO   GL000010.1:1..126477,gap(100000),GL000011.1:1..224781,gap(50000),
+CO   GL000012.1:1..78698,gap(50000),GL000013.1:1..347932,gap(50000),
+CO   GL000014.1:1..3353625,gap(150000),GL000015.1:1..185320,gap(150000),
+CO   GL000016.1:1..57411349,gap(150000),GL000017.1:1..259514,gap(150000),
+CO   GL000018.1:1..42425989,gap(150000),GL000019.1:1..182411,gap(10000))
+//
