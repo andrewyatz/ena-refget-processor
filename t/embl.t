@@ -44,14 +44,14 @@ my $trunc512 = 'da8d7fe34fcc0dc383a81fa5a315bdff22eb4874e60d12fe';
 my $md5 = '648d2b9022e3189736541c85efa9ec06';
 my $length = 30627;
 my $sha512 = 'da8d7fe34fcc0dc383a81fa5a315bdff22eb4874e60d12fefe3256f9fae8fef537f05c1398b0b87a28d9831789848f6bd772bfaf800e2e9400d330e6fc90c1ac';
-my $trunc512_base64 = '2o1_40_MDcODqB-loxW9_yLrSHTmDRL-';
+my $ga4gh = 'ga4gh:SQ.2o1_40_MDcODqB-loxW9_yLrSHTmDRL-';
 my $ena_type = 'expanded_con';
 my $expected_metadata = {
   metadata => {
     aliases => [
       { alias => $versioned_accession, naming_authority => 'INSDC' },
       { alias => $sha512, naming_authority => 'sha512' },
-      { alias => $trunc512_base64, naming_authority => 'trunc512_base64' },
+      { alias => $ga4gh, naming_authority => 'ga4gh' },
     ],
     length => 30627,
     md5 => $md5,
@@ -83,7 +83,7 @@ my $run_test = sub {
     is($json_path, $expected_metadata_target->absolute->stringify(), "Metadata writing path as expected for ${type}");
 
     # Check the logging system works
-    my $expected_full_log = [$trunc512, $md5, $length, $sha512, $trunc512_base64, $versioned_accession, $ena_type, $species, $biosample, $taxon];
+    my $expected_full_log = [$trunc512, $md5, $length, $sha512, $ga4gh, $versioned_accession, $ena_type, $species, $biosample, $taxon];
     my $full_log = Log::Full->new(metadata => $metadata, ena_type => $ena_type, timestamp => $timestamp);
     eq_or_diff($full_log->columns(), $expected_full_log, "Generated full log event as expected for ${type}");
 
@@ -121,6 +121,9 @@ $run_test->($gz_embl, 'gzip embl');
   use Moose;
   use Metadata;
   with 'SeqIOFile';
+  sub build_format {
+    return 'embl';
+  }
   sub process_record {
     my ($self, $seq) = @_;
     return Metadata->create_from_seq($seq);

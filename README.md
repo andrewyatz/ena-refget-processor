@@ -41,7 +41,7 @@ Populated with all pertinent metadata from a load. Columns are:
 - md5 checksum
 - sequence length
 - sha512 checksum
-- base64 url encoded version of trunc512
+- ga4gh checksum (base64 url encoded version of trunc512 with ga4gh:SQ. as specified by VR spec 1.0)
 - versioned accession
 - record type e.g. expanded_con
 - species (full name)

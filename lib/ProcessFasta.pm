@@ -10,7 +10,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-package ProcessEmbl;
+package ProcessFasta;
 
 use Moose;
 use ProcessSeq;
@@ -22,7 +22,7 @@ has 'metadata_store_path' => ( isa => 'Path::Tiny', is => 'ro', required => 1 );
 with 'SeqIOFile';
 
 sub build_format {
-	return 'embl';
+  return 'fasta';
 }
 
 sub process_record {

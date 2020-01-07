@@ -92,11 +92,17 @@ sub trunc512 {
 }
 
 sub trunc512_base64 {
-	my ($self) = @_;
+  my ($self) = @_;
   my $trunc_digest = $self->trunc512();
-	my $bytes = pack("H*", $trunc_digest);
-	my $base64 = encode_base64url($bytes);
-	return $base64;
+  my $bytes = pack("H*", $trunc_digest);
+  my $base64 = encode_base64url($bytes);
+  return $base64;
+}
+
+sub ga4gh {
+  my ($self) = @_;
+  my $trunc512_base64 = $self->trunc512_base64();
+  return q{ga4gh:SQ.}.$trunc512_base64;
 }
 
 sub to_refget_metadata_hash {
@@ -110,7 +116,7 @@ sub to_refget_metadata_hash {
       aliases => [
         { alias => $self->versioned_accession, naming_authority => 'INSDC' },
         { alias => $self->sha512, naming_authority => 'sha512' },
-        { alias => $self->trunc512_base64, naming_authority => 'trunc512_base64' },
+        { alias => $self->ga4gh, naming_authority => 'ga4gh' },
       ]
     }
   };

@@ -18,9 +18,10 @@ use Scalar::Util qw/openhandle/;
 
 # Takes in $self, $record
 requires 'process_record';
+requires 'build_format';
 
 has 'path'        => ( isa => 'Path::Tiny', is => 'ro', required => 1 );
-has 'format'      => ( isa => 'Str', is => 'ro', required => 1, default => 'embl' );
+has 'format'      => ( isa => 'Str', is => 'ro', required => 1, builder => 'build_format' );
 has 'filehandle'  => ( isa => 'FileHandle', is => 'ro', lazy => 1, builder => 'build_filehandle' );
 has 'reader'      => ( isa => 'Bio::SeqIO', is => 'ro', lazy => 1, builder => 'build_reader' );
 has 'handler'     => ( isa => 'CodeRef', is => 'ro', required => 1 );
