@@ -30,7 +30,7 @@ has 'json_path'     =>  ( isa => 'Path::Tiny', is => 'rw', predicate => 'has_jso
 has 'seq_path'      =>  ( isa => 'Path::Tiny', is => 'rw', predicate => 'has_seq_path' );
 
 sub create_from_seq {
-  my ($class, $seq) = @_;
+  my ($class, $seq, $default_taxon) = @_;
   my $md5 = Checksum::MD5->new()->process($seq);
   my $sha512 = Checksum::SHA512->new()->process($seq);
   my $length = $seq->length();
@@ -38,7 +38,7 @@ sub create_from_seq {
   my $version = $seq->version();
   my $species = $seq->species()->scientific_name();
   my $biosample = $class->_biosample_from_seq($seq);
-  my $taxon = $class->_taxon_from_seq($seq);
+  my $taxon = $class->_taxon_from_seq($seq) || $default_taxon;
 
   return Metadata->new(
     sha512 => $sha512,
@@ -54,7 +54,7 @@ sub create_from_seq {
 
 sub _biosample_from_seq {
   my ($class, $seq) = @_;
-  my ($biosample) = map { $_->primary_id() }grep { $_->database() eq 'BioSample' } $seq->get_Annotations('dblink');
+  my ($biosample) = map { $_->primary_id() } grep { $_->database() eq 'BioSample' } $seq->get_Annotations('dblink');
   return $biosample;
 }
 
